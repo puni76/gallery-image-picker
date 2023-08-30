@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -66,3 +67,27 @@ fun PickImageFromGallery(){
     }
 }
 
+@Composable
+fun PickContacts() {
+    val context = LocalContext.current
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickContact(),
+        onResult = { contact ->
+            // Do something with the contact
+        }
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(onClick = {
+            launcher.launch()
+        }) {
+            Text(text = "Pick Contacts")
+        }
+    }
+}
